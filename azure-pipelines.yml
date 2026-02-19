@@ -3,6 +3,11 @@ trigger: none
 pool: AgentsPool
 
 steps:
+
+- task: CmdLine@2
+  displayName: install Nodejs
+  inputs:
+    script: 'apt install -y nodejs'
 - task: CmdLine@2
   displayName: Install
   inputs:

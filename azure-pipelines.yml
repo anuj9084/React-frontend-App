@@ -1,16 +1,12 @@
-  trigger: none
+trigger: none
 
 pool: AgentsPool
 
 steps:
-
 - task: CmdLine@2
-  displayName: Install
   inputs:
     script: 'npm install'
-    
+
 - task: CmdLine@2
-  displayName: Build
   inputs:
-    script: |
-      npm run build
+    script: 'npm run build'

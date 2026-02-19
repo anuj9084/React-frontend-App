@@ -1,8 +1,18 @@
-trigger: none 
-pool: Default
+trigger: none
 
-steps: 
-- task: PowerShell@2
+pool: AgentsPool
+
+steps:
+- task: CmdLine@2
+  displayName: Install
   inputs:
-    targetType: 'inline'
-    script: 'Write-Host "Hello World"'
+    script: |
+      apt update
+      apt install -y nodejs
+
+- task: CmdLine@2
+  displayName: Build
+  inputs:
+    script: |
+      npm install
+      npm run build

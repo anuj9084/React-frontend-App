@@ -1,12 +1,38 @@
 trigger: none
 
-pool: AgentsPool
+jobs:
 
-steps:
-- task: CmdLine@2
-  inputs:
-    script: 'npm install'
+# 🔹 Job 1 – Install
+- job: Install
+  pool:
+    name: AgentsPool
+  steps:
+  - task: CmdLine@2
+    displayName: Npm Install
+    inputs:
+      script: npm install
 
-- task: CmdLine@2
-  inputs:
-    script: 'npm run build'
+- job: ManualApproval
+  pool: server
+  dependsOn: Install
+  steps:
+  - task: ManualValidation@1
+    inputs:
+      notifyUsers: 'anujsoam07@gmail.com'
+      instructions: 'Installation check kar lo'
+      onTimeout: 'reject'
+
+- job: Build
+  pool:
+    name: AgentsPool
+  dependsOn: ManualApproval
+  steps:
+  - task: CmdLine@2
+    displayName: Npm Build
+    inputs:
+      script: npm run build
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+      ArtifactName: 'reactartifacts'
+      publishLocation: 'Container'

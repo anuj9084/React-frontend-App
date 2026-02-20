@@ -11,26 +11,21 @@ jobs:
     displayName: Npm Install
     inputs:
       script: npm install
-
-- job: ManualApproval
-  pool: server
-  dependsOn: Install
-  steps:
-  - task: ManualValidation@1
-    inputs:
-      notifyUsers: 'anujsoam07@gmail.com'
-      instructions: 'Installation check kar lo'
-      onTimeout: 'reject'
-
-- job: Build
-  pool:
-    name: AgentsPool
-  dependsOn: ManualApproval
-  steps:
   - task: CmdLine@2
     displayName: Npm Build
     inputs:
-      script: npm run build
+      script: 'npm run build'
+
+# - job: ManualApproval
+#   pool: server
+#   dependsOn: Install
+#   steps:
+#   - task: ManualValidation@1
+#     inputs:
+#       notifyUsers: 'anujsoam07@gmail.com'
+#       instructions: 'Installation check kar lo'
+#       onTimeout: 'reject'
+
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'

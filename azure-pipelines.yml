@@ -28,6 +28,6 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/build'
       ArtifactName: 'reactartifacts'
       publishLocation: 'Container'

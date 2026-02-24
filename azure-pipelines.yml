@@ -13,15 +13,15 @@ jobs:
       targetType: 'inline'
       script: 'biome lint $(System.DefaultWorkingDirectory)/src/'
 
-# - job: staticanalysis
-#   displayName: statis analysis
-#   pool:
-#    name: AgentsPool
-#   steps:
-#   - task: PowerShell@2
-#     inputs:
-#       targetType: 'inline'
-#       script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_ab50c2d63ac008d55833793ba64dcbcb56d9cb12 -D sonar.projectKey=ReactApplication'
+- job: staticanalysis
+  displayName: statis analysis
+  pool:
+   name: AgentsPool
+  steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_ab50c2d63ac008d55833793ba64dcbcb56d9cb12 -D sonar.projectKey=ReactApplication'
 
 
 # # 🔹 Job 1 – Install

@@ -2,30 +2,40 @@ trigger: none
 
 jobs:
 
-- job: staticanalysis
-  displayName: statis analysis
+- job: Linting
+  displayName: Javascript lint
   pool:
    name: AgentsPool
   steps:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_ab50c2d63ac008d55833793ba64dcbcb56d9cb12 -D sonar.projectKey=ReactApplication'
+      script: 'biome lint $(System.DefaultWorkingDirectory)/src/'
+
+# - job: staticanalysis
+#   displayName: statis analysis
+#   pool:
+#    name: AgentsPool
+#   steps:
+#   - task: PowerShell@2
+#     inputs:
+#       targetType: 'inline'
+#       script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_ab50c2d63ac008d55833793ba64dcbcb56d9cb12 -D sonar.projectKey=ReactApplication'
 
 
-# 🔹 Job 1 – Install
-- job: Install
-  displayName: Install
-  dependsOn: staticanalysis
-  pool:
-    name: AgentsPool
-  steps:
-  - task: CmdLine@2
-    displayName: Npm Install
-    inputs:
-      script: npm install
+# # 🔹 Job 1 – Install
+# - job: Install
+#   displayName: Install
+#   dependsOn: staticanalysis
+#   pool:
+#     name: AgentsPool
+#   steps:
+#   - task: CmdLine@2
+#     displayName: Npm Install
+#     inputs:
+#       script: npm install
 
-  - task: CmdLine@2
-    displayName: Npm Build
-    inputs:
-      script: npm run build
+#   - task: CmdLine@2
+#     displayName: Npm Build
+#     inputs:
+#       script: npm run build

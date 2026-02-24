@@ -4,6 +4,8 @@ jobs:
 
 - job: staticanalysis
   displayName: statis analysis
+  pool:
+   name: AgentsPool
   steps:
   - task: PowerShell@2
     inputs:

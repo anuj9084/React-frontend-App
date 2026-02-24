@@ -1,6 +1,7 @@
 trigger: none
 
 jobs:
+
 - job: staticanalysis
   displayName: statis analysis
   steps:
@@ -10,32 +11,19 @@ jobs:
       script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_ab50c2d63ac008d55833793ba64dcbcb56d9cb12 -D sonar.projectKey=ReactApplication'
 
 
-# # 🔹 Job 1 – Install
-# - job: Install
-#   pool:
-#     name: AgentsPool
-#   steps:
-#   - task: CmdLine@2
-#     displayName: Npm Install
-#     inputs:
-#       script: npm install
-#   - task: CmdLine@2
-#     displayName: Npm Build
-#     inputs:
-#       script: 'npm run build'
+# 🔹 Job 1 – Install
+- job: Install
+  displayName: Install
+  dependsOn: staticanalysis
+  pool:
+    name: AgentsPool
+  steps:
+  - task: CmdLine@2
+    displayName: Npm Install
+    inputs:
+      script: npm install
 
-# - job: ManualApproval
-#   pool: server
-#   dependsOn: Install
-#   steps:
-#   - task: ManualValidation@1
-#     inputs:
-#       notifyUsers: 'anujsoam07@gmail.com'
-#       instructions: 'Installation check kar lo'
-#       onTimeout: 'reject'
-
-  # - task: PublishBuildArtifacts@1
-  #   inputs:
-  #     PathtoPublish: '$(System.DefaultWorkingDirectory)/build'
-  #     ArtifactName: 'reactartifacts'
-  #     publishLocation: 'Container'
+  - task: CmdLine@2
+    displayName: Npm Build
+    inputs:
+      script: npm run build

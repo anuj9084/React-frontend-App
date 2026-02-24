@@ -3,12 +3,12 @@ trigger: none
 jobs:
 
 - job: Linting
-  continueOnError: true
   displayName: Javascript lint
   pool:
    name: AgentsPool
   steps:
   - task: PowerShell@2
+    continueOnError: true
     inputs:
       targetType: 'inline'
       script: 'biome lint $(System.DefaultWorkingDirectory)/src/'

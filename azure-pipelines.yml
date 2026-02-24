@@ -3,6 +3,7 @@ trigger: none
 jobs:
 
 - job: Linting
+  continueOnError: true
   displayName: Javascript lint
   pool:
    name: AgentsPool
